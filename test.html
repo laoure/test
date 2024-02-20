@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>라거머핀 주루마블</title>
+  <style>
+    /* CSS 스타일링 */
+    #board {
+      position: relative;
+      width: 1800px; /* 보드의 너비(70px * 9개) */
+      height: 910px; /* 보드의 높이(70px * 9개) */
+      display: grid;
+      grid-template-columns: repeat(9, 1fr);
+      grid-template-rows: repeat(7, 1fr); /* 타일을 세로로 15개까지 표시 */
+    }
+
+    .a {
+      width: 190px;
+      height: 120px;
+      border: 4px solid Plum;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 15px;
+    }
+
+
+    .b {
+      width: 190px;
+      height: 120px;
+      border: 4px solid pink;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 15px;
+    }
+  </style>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Dongle&display=swap');
+    .property {
+      background-color: #ffffff;
+      font-family: "Bagel Fat One", sans-serif;
+      font-weight: 400;
+      font-style: normal;
+      color: white; /* 텍스트 색상은 흰색 */
+      font-size: 27px;
+      text-shadow: 
+        -1px -1px 0 pink,  
+        1px -1px 0 pink,
+        -1px 1px 0 pink,
+        1px 1px 0 pink,
+        -2px -2px 0 pink,  
+        2px -2px 0 pink,
+        -2px 2px 0 pink,
+        2px 2px 0 pink;
+    }
+
+
+
+
+    .player1 {
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      transform: translate(-80%, -10%);
+      background-image: url('lager.png');
+      background-size: cover;
+    }
+
+    .player2 {
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      transform: translate(50%, -10%);
+      background-image: url('zzi.png');
+      background-size: cover;
+    }
+
+    .diceButton {
+      position: absolute;
+      border: 4px solid Plum;
+      font-size: 27px; /* 글꼴 크기 */
+      font-family: "Bagel Fat One", sans-serif;
+      text-align:center;
+      width: 120px;
+      height: 60px;
+      color: white;
+      background-color: white;
+      border-radius: 10px;
+      text-shadow: 
+        -1px -1px 0 pink,  
+        1px -1px 0 pink,
+        -1px 1px 0 pink,
+        1px 1px 0 pink,
+        -2px -2px 0 pink,  
+        2px -2px 0 pink,
+        -2px 2px 0 pink,
+        2px 2px 0 pink;
+    }
+
+    .diceButton.player1 {
+      left: 46%; /* 왼쪽에서 10px에 위치 */
+    }
+
+    .diceButton.player2 {
+      right: 49%; /* 오른쪽에서 10px에 위치 */
+    }
+    .diceResult {
+      position: absolute;
+      font-size: 42px; /* 글꼴 크기 */
+      color: white;
+      text-shadow: 
+        -1px -1px 0 pink,  
+        1px -1px 0 pink,
+        -1px 1px 0 pink,
+        1px 1px 0 pink,
+        -2px -2px 0 pink,  
+        2px -2px 0 pink,
+        -2px 2px 0 pink,
+        2px 2px 0 pink;
+      font-family: "Bagel Fat One", sans-serif;
+      text-align: center;
+    }
+
+  </style>
+</head>
+<body>
+  <div id="board">
+    <!-- 9x15 모노폴리 보드 생성 -->
+    <!-- 각 타일은 다른 명칭이나 기능을 가지며, CSS를 통해 구분됩니다. -->
+    <!-- 이 예시에서는 각 타일의 내용을 표시하기 위해 div 내에 텍스트로 숫자를 표시합니다. -->
+    <!-- 실제 게임에서는 각 타일에 해당하는 내용을 표시할 수 있습니다. -->
+    <!-- 플레이어 1의 말판 -->
+    <div class="player player1" id="player1"></div>
+    <!-- 플레이어 2의 말판 -->
+    <div class="player player2" id="player2"></div>
+    
+    <!-- 각 타일 생성 -->
+    <!-- 부동산 타일 (1~9) -->
+    <div class="a property" id="tile1" style="grid-row: 1; grid-column: 1;"><center>출발<br>→</center></div>
+    <div class="b property" id="tile2" style="grid-row: 1; grid-column: 2;"><center>애교</center></div>
+    <div class="a property" id="tile3" style="grid-row: 1; grid-column: 3;"><center>베스킨라빈스<br>31</center></div>
+    <div class="b property" id="tile4" style="grid-row: 1; grid-column: 4;"><center>쉴드권</center></div>
+    <div class="a property" id="tile5" style="grid-row: 1; grid-column: 5;"><center>술 두모금</center></div>
+    <div class="b property" id="tile6" style="grid-row: 1; grid-column: 6;"><center>뒤로 한칸</center></div>
+    <div class="a property" id="tile7" style="grid-row: 1; grid-column: 7;"><center>한턴동안<br>~체</center></div>
+    <div class="b property" id="tile8" style="grid-row: 1; grid-column: 8;"><center>다같이<br>짠!</center></div>
+    <div class="a property" id="tile9" style="grid-row: 1; grid-column: 9;"><center>적립!</center></div>
+    
+    <!-- 타일 10부터 15까지 추가 (수직으로 바로 아래에 이어짐) -->
+    <div class="b property" id="tile10" style="grid-row: 2; grid-column: 9;"> <center>나빼고<br>다마셔!</center></div>
+    <div class="a property" id="tile11" style="grid-row: 3; grid-column: 9;"> <center>노래 1절</center></div>
+    <div class="b property" id="tile12" style="grid-row: 4; grid-column: 9;"> <center>3,6,9<br>게임</center></div>
+    <div class="a property" id="tile13" style="grid-row: 5; grid-column: 9;"> <center>너마셔!<br>(지목권)</center></div>
+    <div class="b property" id="tile14" style="grid-row: 6; grid-column: 9;"> <center>물 마시기</center></div>
+    <div class="a property" id="tile15" style="grid-row: 7; grid-column: 9;"> <center>무인도<br>(한턴쉬기)</center></div>
+
+    <!-- 타일 16부터 23까지 추가 (15번 바로 왼쪽에서부터 시작) -->
+    <div class="b property" id="tile16" style="grid-row: 7; grid-column: 8;"><center>사다리<br>두명마시기</center></div>
+    <div class="a property" id="tile17" style="grid-row: 7; grid-column: 7;"><center>애교</center></div>
+    <div class="b property" id="tile18" style="grid-row: 7; grid-column: 6;"><center>적립주<br>마시기</center></div>
+    <div class="a property" id="tile19" style="grid-row: 7; grid-column: 5;"><center>쉴드권</center></div>
+    <div class="b property" id="tile20" style="grid-row: 7; grid-column: 4;"><center>노래1절</center></div>
+    <div class="a property" id="tile21" style="grid-row: 7; grid-column: 3;"><center>말안되는<br>끝말잇기</center></div>
+    <div class="b property" id="tile22" style="grid-row: 7; grid-column: 2;"><center>다같이<br>짠!</center></div>
+    <div class="a property" id="tile23" style="grid-row: 7; grid-column: 1;"><center>원하는 지점으로<br>이동</center></div>
+
+    <!-- 타일 24부터 28까지 추가 (수직으로 바로 아래에 이어짐) -->
+    <div class="b property" id="tile24" style="grid-row: 6; grid-column: 1;"><center>술 한잔</center></div>
+    <div class="a property" id="tile25" style="grid-row: 5; grid-column: 1;"><center>손병호 게임</center></div>
+    <div class="b property" id="tile26" style="grid-row: 4; grid-column: 1;"><center>한턴동안<br>~체</center></div>
+    <div class="a property" id="tile27" style="grid-row: 3; grid-column: 1;"><center>물 마시기</center></div>
+    <div class="b property" id="tile28" style="grid-row: 2; grid-column: 1;"><center>뒤로 두칸</center></div>
+  </div>
+
+<button id="diceButton1" class="diceButton player1" style="top: 45%;" onclick="rollDice('player1')">라거머핀</button>
+<div id="dice1" class="diceResult" style="top: 38%; left: 44%; transform: translateX(-50%);"> </div>
+
+<button id="diceButton2" class="diceButton player2" style="top: 45%;" onclick="rollDice('player2')">찌미</button>
+<div id="dice2" class="diceResult" style="top: 38%; left: 51%; transform: translateX(-50%);"> </div>
+
+  <script>
+    var player1Position = 1;
+    var player2Position = 1;
+    var currentPlayer = 1;
+
+    // 말판 위치를 중앙으로 이동하는 함수
+    function movePlayerToCenter(player) {
+      var tile = document.getElementById("tile1"); // 1번 타일 선택
+      var playerToken = document.getElementById(player);
+      if (tile && playerToken) {
+        var tileRect = tile.getBoundingClientRect();
+        var playerWidth = playerToken.offsetWidth;
+        var playerHeight = playerToken.offsetHeight;
+        var tileCenterX = tileRect.left + tileRect.width / 2;
+        var tileCenterY = tileRect.top + tileRect.height / 2;
+        var playerLeft = tileCenterX - playerWidth / 2;
+        var playerTop = tileCenterY - playerHeight / 2;
+        playerToken.style.left = playerLeft + "px";
+        playerToken.style.top = playerTop + "px";
+      }
+    }
+
+    // 플레이어1과 플레이어2의 시작 위치를 1번 타일의 중앙으로 이동
+    movePlayerToCenter("player1");
+    movePlayerToCenter("player2");
+
+    function rollDice(player) {
+      var result = Math.floor(Math.random() * 6) + 1;
+      if(player === 'player1') {
+        document.getElementById("dice1").innerHTML = result;
+        // 현재 플레이어 위치 갱신
+        player1Position += result;
+        if (player1Position > 28) {
+          player1Position -= 28;
+        }
+        // 말판 이동
+        movePlayer("player1", player1Position);
+        currentPlayer = 2;
+      } else {
+        document.getElementById("dice2").innerHTML = result;
+        // 현재 플레이어 위치 갱신
+        player2Position += result;
+        if (player2Position > 28) {
+          player2Position -= 28;
+        }
+        // 말판 이동
+        movePlayer("player2", player2Position);
+        currentPlayer = 1;
+      }
+    }
+
+    function movePlayer(player, position) {
+      var tile = document.getElementById("tile" + position);
+      var playerToken = document.getElementById(player);
+      if (tile && playerToken) {
+        var tileRect = tile.getBoundingClientRect();
+        var playerWidth = playerToken.offsetWidth;
+        var playerHeight = playerToken.offsetHeight;
+        var tileCenterX = tileRect.left + tileRect.width / 2;
+        var tileCenterY = tileRect.top + tileRect.height / 2;
+        var playerLeft = tileCenterX - playerWidth / 2;
+        var playerTop = tileCenterY - playerHeight / 2;
+        playerToken.style.left = playerLeft + "px";
+        playerToken.style.top = playerTop + "px";
+      }
+    }
+  </script>
+</body>
+</html>
